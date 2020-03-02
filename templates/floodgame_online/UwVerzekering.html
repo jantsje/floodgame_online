@@ -1,0 +1,55 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block content %}
+
+<br><br><br>
+<h2>{{page_title}}</h2>
+<hr>
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+{% include 'snippets_floodgame_online/Verdienstenbar.html' %}
+
+    <div class="row">
+
+        {% include 'snippets_floodgame_online/Risicoblok.html' %}
+        {% include 'snippets_floodgame_online/Tijdblok.html' %}
+        {% include 'snippets_floodgame_online/Schadeblok.html' %}
+        {% include 'snippets_floodgame_online/Verzekeringsblok.html' %}
+
+    </div>
+
+
+
+<div class="card bg-light"><div class="card-body">{% if has_insurance %}
+    {% if player.accept_fair %}
+        <p>U heeft aangegeven dat u de verzekering voor een premie van {{wtp}} per maand (of minder) wilt aanschaffen.
+        </p><p>
+        De verzekeraar heeft de nieuwe premies berekend en deze vallen lager uit.</p>
+{% elif player.accept_lower%}
+    <p>U heeft aangegeven dat u de verzekering voor een premie van {{wtp}} per maand (of minder) wilt aanschaffen. </p>
+
+{% else %}
+
+{% endif %}
+
+
+    <h5>U bent verzekerd voor <strong>{{premium_monthly}} premie per maand</strong>. Dat is {{premium}} per jaar. </h5>
+    <p>Bij een overstroming betaalt u <strong>{{deductible_ecu_this_scenario}}</strong> eigen risico. </p>
+
+
+
+    {% else %}
+    <h5>U bent niet verzekerd. In het geval van een overstroming betaalt u de volledige schade: <strong>{{Constants.damage}}</strong></h5>
+
+    {% endif %}
+</div>
+</div>
+
+
+
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+<br>
+<button class="btn btn-primary btn-right btn-lg">Volgende</button>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Hartelijk dank voor uw deelname
+{% endblock %}
+
+
+{% block content %}
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar"  aria-valuemin="0" aria-valuemax="100" style="width:100%;">
+  <span class="sr-only">100 % </span>
+  </div>
+</div>
+
+<img width="100%" src="{% static 'floodgame_online/banner_NL.jpg' %}"/>
+
+
+   <div><h4>
+<br><br>
+       Hartelijk dank voor uw deelname aan dit onderzoek. Dit was de laatste pagina van de vragenlijst. <br>
+       <br> Mocht u geselecteerd worden voor uitbetaling van de grote prijs, dan zullen wij contact met u opnemen.
+   </h4>
+       <br>Als u vragen heeft over het onderzoek dan kunt u een e-mail sturen naar
+       <a href="mailto:info.ivm@vu.nl">info.ivm@vu.nl</a>
+
+
+</div>
+
+
+<br> <br>
+
+<button class="btn btn-primary btn-right btn-lg" onclick="self.close()">Sluit dit venster</button>
+
+{% endblock %}

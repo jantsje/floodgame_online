@@ -1,0 +1,37 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Resultaten
+{% endblock %}
+
+{% block content %}
+
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+
+
+
+
+    <div class="alert alert-success">
+<p class="card-text">
+
+    Het bedrag op uw spaarrekening op de laatste pagina was <strong>{{payoff_scenario1}}</strong>.
+    Mocht u worden geselecteerd voor de grote betaling, dan krijgt u <strong>{{payoff}}</strong>.
+    (De omrekenfactor is 100 ECU = &euro;1).</p> <p>
+    Iedere deelnemer heeft evenveel kans om geselecteerd te worden voor deze grote betaling.
+    De computer zal willekeurig iemand selecteren nadat alle deelnemers de vragenlijst hebben voltooid.
+
+</p>
+
+
+
+
+</div>
+
+<button class="btn btn-primary btn-lg" name="selected" value="selected">Volgende</button>
+
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+
+{% endblock %}
+
+

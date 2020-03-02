@@ -1,0 +1,46 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+{% include 'snippets_floodgame_online/Titelblok.html' %}
+{% endblock %}
+
+{% block content %}
+{% include 'snippets_floodgame_online/Titel.html' %}
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+{% include 'snippets_floodgame_online/Verdienstenbar.html' %}
+
+    <div class="row">
+
+        {% include 'snippets_floodgame_online/Risicoblok.html' %}
+        {% include 'snippets_floodgame_online/Tijdblok.html' %}
+        {% include 'snippets_floodgame_online/Schadeblok.html' %}
+        {% include 'snippets_floodgame_online/Verzekeringsblok.html' %}
+
+    </div>
+
+{% if scenario_nr == 0 %}
+<div class="alert alert-warning" role="alert">
+     <h4><strong>Let op!</strong>
+         U kunt dit oefenscenario gebruiken om bekend te raken met de mogelijkheden.
+         De resultaten zullen niet mee worden genomen bij het bepalen van uw verdiensten. </h4>
+     </div>
+
+{% elif scenario_nr == 1 %}
+<div class="alert alert-warning" role="alert">
+     <h4><strong>Let op!</strong> Het definitieve scenario begint nu.
+    Neem de tijd om de informatie goed te lezen, want het is belangrijk voor uw uiteindelijke verdiensten.</h4>
+     </div>
+
+ {% else %}
+{%endif%}
+
+
+<button class="btn btn-primary btn-lg">Start het scenario</button>
+
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+
+
+
+{% endblock %}
+

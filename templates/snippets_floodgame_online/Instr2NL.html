@@ -1,0 +1,38 @@
+{% load staticfiles otree_tags %}
+
+{% if is_voluntary %}
+    <div class="card">
+          <div class="card-body px-3">
+              <div class="row">
+                  <div class="col-md-10">
+                  <p>U <strong>heeft de mogelijkheid </strong> om een verzekering af te sluiten voor overstromingsschade.
+    In ruil voor een premie betaalt de verzekeraar een deel van uw schade in het geval van een overstroming.
+        De overheid zal geen geen schade door overstromingen compenseren.</p>
+              </div>
+              <div class="col-md-2">
+                  <i class="material-icons black" style="font-size:6em">business_center</i>
+              </div>
+              </div>
+            </div>
+      </div>
+{%elif has_insurance %}
+    <div class="card">
+        <div class="card-body px-3">
+            <div class="row">
+              <div class="col-md-5">
+                  <img class="card-img" width="100%" src="{% static 'floodgame_online/ER5.png' %}"/>
+                <small class="text-muted"> Het gedeelte dat u zelf moet betalen, wordt het <strong> eigen risico
+                </strong> genoemd. Het eigen risico in dit scenario is {{deductible_percent}} procent. </small>
+              </div>
+              <div class="col-md-7"> <p>
+                  In het scenario heeft u een verplichte <strong> overstromingsverzekering</strong>
+            waarvoor u jaarlijks premie betaalt. <br><br>
+            In ruil voor deze premie zal de verzekeraar een deel van uw schade vergoeden, mocht uw huis overstromen.
+            <strong>De premie is fair</strong>, gebaseerd op de schadekans, uw eigen risico en de maximale schade. </p>
+              </div>
+            </div>
+        </div></div>
+
+{% endif %}
+
+

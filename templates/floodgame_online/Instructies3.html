@@ -1,0 +1,31 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block content %}
+<br><br><br>
+<h2>{{page_title}}</h2>
+<hr>
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+{% include 'snippets_floodgame_online/Verdienstenbar.html' %}
+
+
+{% include 'snippets_floodgame_online/Instr3NL.html' %}
+<div class="card"><div class="card-body bg-light">
+
+    {% if has_insurance %}
+    <p>Uw verzekering staat nu vast.</p>
+    {% else %}
+     {%endif%}
+   <h5> Voor de keuzes die nu volgen, krijgt u eerst een oefenscenario voorgelegd.
+</h5></div></div>
+
+<br>
+<button class="btn btn-primary btn-lg">Start het oefenscenario</button>
+
+
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+
+
+{% endblock %}
+
+

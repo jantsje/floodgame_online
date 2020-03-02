@@ -1,0 +1,71 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block content %}
+<br><br><br>
+<h2>{{page_title}}</h2>
+<hr>
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+{% include 'snippets_floodgame_online/Verdienstenbar.html' %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="col-md-8">
+                    <img class="card-img-top" src="{% static 'floodgame_online/ER5.png' %}"/>
+        </div>
+        <p> Bent u verzekerd en uw huis overstroomt, dan betaalt u <strong>{{deductible_ecu_this_scenario}}</strong>. <br>
+        Als u onverzekerd bent en uw huis overstroomt zult u de volledige schade van <strong>{{Constants.damage}}
+        </strong>moeten betalen.</p>
+    </div>
+</div>
+
+<div class="card bg-light">
+    <div class="card-body"> <p>
+{% if player.accept_fair %}
+        U heeft aangegeven dat u de verzekering voor een premie van {{premium_fair}} per maand wilt aanschaffen. <br>
+        <b>Stel dat de premie hoger is, hoeveel geld bent u maximaal bereid uit te geven aan deze verzekering per maand?</b>
+{% elif player.accept_lower%}
+        U heeft aangegeven dat u de verzekering voor {{premium_monthly}} wilt aanschaffen, maar niet voor {{premium_fair}} per maand.
+        <br>
+        <b>Kunt u aangeven hoeveel geld u maximaal bereid bent uit te geven aan deze verzekering per maand?</b>
+{% else %}
+        U heeft aangegeven dat u voor een premie van {{premium_monthly}} per maand geen verzekering wilt aanschaffen. <br>
+        <b>Stel dat de premie lager is, hoeveel geld bent u maximaal bereid uit te geven aan deze verzekering per maand?</b>
+{% endif %}
+</p>
+    <div class="row">
+            <div class="input-group col-md-3">
+{% if player.accept_fair %}
+                <div class="input-group-input">
+                    <input class="form-control col-xs-1" required type="number" min={{premium_fair}}
+                                                       name="wtp" id="wtp" autocomplete="off"></div>
+                    <span class="input-group-text">ECU</span>
+{% elif player.accept_lower%}
+                <div class="input-group-input">
+                    <input class="form-control col-xs-1" required type="number" min={{premium_monthly}}
+                           max={{max_premium_fair}} name="wtp" id="wtp" autocomplete="off"></div>
+                    <span class="input-group-text">ECU</span>
+{% else %}
+                <div class="input-group-input">
+                    <input class="form-control col-xs-1" required type="number" max={{max_premium}}
+                                                       name="wtp" id="wtp" autocomplete="off"></div>
+                    <span class="input-group-text">ECU</span>
+{% endif %}
+            </div>
+                <div class="col-md-8"><small class="text-muted">
+        {% if player.accept_fair %}
+        (u kunt alleen een bedrag invullen groter of gelijk aan {{premium_fair}})
+{% elif player.accept_lower%}
+        (u kunt alleen een bedrag invullen tussen {{premium_monthly}} en {{premium_fair}})
+{% else %}
+        (u kunt alleen een bedrag invullen kleiner dan {{premium_monthly}})
+
+    {% endif %}
+                </small></div></div></div></div>
+<button class="btn btn-primary btn-right btn-lg">Volgende</button>
+
+
+
+
+{% endblock %}

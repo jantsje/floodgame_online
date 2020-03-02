@@ -1,0 +1,101 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block content %}
+
+{% include 'snippets_floodgame_online/Titel.html' %}
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+{% include 'snippets_floodgame_online/Verdienstenbar.html' %}
+
+ <div class="row">
+
+        {% include 'snippets_floodgame_online/Risicoblok.html' %}
+        {% include 'snippets_floodgame_online/Tijdblok.html' %}
+        {% include 'snippets_floodgame_online/Schadeblok.html' %}
+        {% include 'snippets_floodgame_online/Verzekeringsblok.html' %}
+
+    </div>
+
+<div class="alert alert-dark" role="alert">
+<p class="card-text"><b> Hoeveel wilt u investeren om de schade van een overstroming te beperken?
+</b></h5>
+</div>
+
+<div class="card-group">
+<div class="card" style="text-align:center;">
+    <button name="mitigate" value=0 class="btn btn-primary btn-lg btn-block"><i class="material-icons white">build</i>&nbsp;
+
+        {{mitigation_cost0}} </button> <p class="card-text">
+    {% if has_discount and has_insurance %}
+          <br> de premie is {{premium_discounted0}} / jaar <br>
+    {% endif %}
+
+    niet investeren: accepteer {{Constants.damage}} schade
+
+    {% if has_insurance %} <br>  <br> u betaalt {{reduced_deductible0}} <br> eigen risico bij overstroming
+    {% else %}
+    {% endif %}
+</p>
+
+
+</div>
+
+{%if not has_insurance %}
+
+<div class="card" style="text-align:center;">
+<button name="mitigate" value=1 class="btn btn-primary btn-lg btn-block" ><i class="material-icons white">build</i>
+    &nbsp;{{mitigation_cost1}} </button><p class="card-text"> verminder schade tot<br>  {{reduced_damage1}} <br></p></div>
+<div class="card" style="text-align:center;">
+<button name="mitigate" value=2 class="btn btn-primary btn-lg btn-block"><i class="material-icons white">build</i>
+    &nbsp;{{mitigation_cost2}} </button><p class="card-text"> verminder schade tot<br> {{reduced_damage2}} <br></p></div>
+<div class="card" style="text-align:center;">
+<button name="mitigate" value=3 class="btn btn-primary btn-lg btn-block"><i class="material-icons white">build</i>
+    &nbsp;{{mitigation_cost3}} </button><p class="card-text"> verminder schade tot<br> {{reduced_damage3}} <br></p></div>
+<div class="card" style="text-align:center;">
+<button name="mitigate" value=4 class="btn btn-primary btn-lg btn-block"><i class="material-icons white">build</i>
+    &nbsp;{{mitigation_cost4}} </button><p class="card-text"> verminder schade tot<br>  {{reduced_damage4}} <br></p></div>
+
+{% else %}
+
+<div class="card" style="text-align:center;">
+<button name="mitigate" value=1 class="btn btn-primary btn-lg btn-block" ><i class="material-icons white">build</i>&nbsp;
+    {{mitigation_cost1}} </button><p class="card-text">
+    {% if has_discount %}
+        verlaag premie tot <br> {{premium_discounted1}} / jaar <br>
+    {% endif %}verminder schade tot<br> {{reduced_damage1}}  <br> <br> u betaalt {{reduced_deductible1}} <br>eigen risico bij overstroming</p>
+    </div>
+<div class="card" style="text-align:center;">
+<button name="mitigate" value=2 class="btn btn-primary btn-lg btn-block"><i class="material-icons white">build</i>&nbsp;
+    {{mitigation_cost2}} </button><p class="card-text">
+    {% if has_discount %}
+        verlaag premie tot <br> {{premium_discounted2}} / jaar <br>
+    {% endif %}verminder schade tot<br> {{reduced_damage2}}  <br>  <br> u betaalt {{reduced_deductible2}} <br>eigen risico bij overstroming</p>
+
+    </div>
+<div class="card" style="text-align:center;">
+<button name="mitigate" value=3 class="btn btn-primary btn-lg btn-block"><i class="material-icons white">build</i>&nbsp;
+    {{mitigation_cost3}} </button><p class="card-text">
+    {% if has_discount %}
+        verlaag premie tot <br> {{premium_discounted3}} / jaar <br>
+    {% endif %}verminder schade tot<br> {{reduced_damage3}}  <br>  <br> u betaalt {{reduced_deductible3}} <br>eigen risico bij overstroming</p>
+
+    </div>
+<div class="card" style="text-align:center;">
+<button name="mitigate" value=4 class="btn btn-primary btn-lg btn-block"><i class="material-icons white">build</i>&nbsp;
+    {{mitigation_cost4}} </button><p class="card-text">
+    {% if has_discount %}
+        verlaag premie tot <br> {{premium_discounted4}} / jaar <br>
+    {% endif %}verminder schade tot<br> {{reduced_damage4}}  <br>  <br> u betaalt {{reduced_deductible4}} <br>eigen risico bij overstroming</p>
+    </div>
+
+
+{% endif %}
+
+
+<br><br><br><br>
+
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+
+
+{% endblock %}

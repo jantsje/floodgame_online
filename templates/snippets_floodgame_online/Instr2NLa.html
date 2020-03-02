@@ -1,0 +1,40 @@
+{% load staticfiles otree_tags %}
+
+{%if has_insurance %}
+  <div class="card">
+        <div class="card-body px-3">
+            <div class="row">
+              <div class="col-md-10" >
+                  <img class="card-img-top" align="center" width="100%" src="{% static 'floodgame_online/ER5.png' %}"/>
+                <small class="text-muted"> Het gedeelte dat u zelf moet betalen, wordt het <strong> eigen risico
+                </strong> genoemd. Het eigen risico in dit scenario is {{deductible_percent}} procent. </small>
+              </div></div>
+                <div class="row">
+                  <div class="col-md-10"> <br>
+        <p>In het scenario heeft u een {% if not is_voluntary %} verplichte {% endif %}
+            <strong> overstromingsverzekering</strong>
+            waarvoor u jaarlijks premie betaalt. <br><br>
+            In ruil voor deze premie zal de verzekeraar een deel van uw schade vergoeden, mocht uw huis overstromen.
+            <strong>De premie is fair</strong>, gebaseerd op de schadekans, uw eigen risico en de maximale schade.
+
+
+        </p></div></div></div></div>
+
+{% else %}
+<div class="card">
+    <div class="card-body px-3">
+        <div class="row">
+            <div class="col-md-9">
+                        <p>U heeft <b>geen verzekering</b> tegen overstromingen.</p>
+                <p>Bij een overstroming zult u de <strong>volledige schade van {{reduced_damage_this_scenario}}
+                </strong> moeten betalen.</p>
+            </div>
+            <div class="col-md-3" align="center"><br>
+                <i class="material-icons black" style="font-size:6em">business_center</i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}

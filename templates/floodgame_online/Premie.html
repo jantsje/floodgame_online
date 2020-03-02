@@ -1,0 +1,36 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+{% include 'snippets_floodgame_online/Titelblok.html' %}
+{% endblock %}
+
+{% block content %}
+{% include 'snippets_floodgame_online/Titel.html' %}
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+{% include 'snippets_floodgame_online/Verdienstenbar.html' %}
+
+
+    <div class="row">
+
+        {% include 'snippets_floodgame_online/Risicoblok.html' %}
+        {% include 'snippets_floodgame_online/Tijdblok.html' %}
+        {% include 'snippets_floodgame_online/Schadeblok.html' %}
+        {% include 'snippets_floodgame_online/Verzekeringsblok.html' %}
+
+    </div>
+
+<div class="alert alert-dark" role="alert">
+<p class="card-text"><b> U heeft een overstromingsrisicoverzekering. De premie is {{premium}} per jaar.
+</b></h5>
+</div>
+<h4>
+
+
+<button name="pay_premium" value="paid_premium" class="btn btn-primary btn-lg"> Betaal {{total_premium}} premie</button>
+
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+
+
+{% endblock %}
+

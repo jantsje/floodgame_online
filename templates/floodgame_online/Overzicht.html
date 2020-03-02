@@ -1,0 +1,68 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    {{page_title}}
+{% endblock %}
+
+{% block content %}
+
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+
+
+
+<div class="card"><div class="card-body">
+    <p>
+Hier vindt u een overzicht van uw spaarrekening in de afgelopen jaren:
+    </p>
+
+    <table class="table table-bordered"  style="width:50%">
+
+       <tr>
+           <td> Startkapitaal </td>
+           <td align="right"> {{Constants.initial_endowment}} </td>
+       </tr>
+       <tr>
+            <td> Investering schadebeperkende maatregelen </td>
+            <td align="right"> - {{mitigation_cost_this_scenario}} ECU</td>
+        {% if has_insurance %}
+        <tr>
+            <td> {{Constants.jaar}} jaar x premie van {{premium}} per jaar </td>
+            <td align="right"> - {{total_premium}}</td></tr>
+        <tr>
+        {% endif %}
+{% if player.flooded and not has_insurance %}
+        <tr>
+            <td> Overstromingsschade </td>
+            <td align="right"> - {{reduced_damage_this_scenario}}</td></tr>
+        <tr>
+{% elif player.flooded and has_insurance %}
+        <tr>
+            <td> Eigen risico overstromingsschade </td>
+            <td align="right"> - {{deductible_ecu_this_scenario}}</td></tr>
+        <tr>
+{% else %}
+        <tr>
+            <td> Overstromingsschade </td>
+            <td align="right"> - 0 ECU </td></tr>
+        <tr>
+            {% endif %}
+
+
+        <tr>
+            <td><strong> Totaal </strong></td>
+            <td align="right"><strong> {{cumulative_payoff}}</strong></td>
+       </tr>
+    </table>
+
+
+</div></div>
+
+<br>
+<button class="btn btn-primary btn-lg" name="selected" value="selected">Volgende</button>
+
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+
+{% endblock %}
+
+

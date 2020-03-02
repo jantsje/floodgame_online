@@ -1,0 +1,262 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Vragenlijst
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+            function cleanAndersText(){
+                if (document.getElementById('anders_edu').checked){
+                document.getElementById('anders_text').value = ''
+                console.log('cleaning out anders text')}
+                        }
+
+            function enableAll(){
+				var items=document.getElementsByName('insurances');
+				for(var i=0; i<items.length; i++){
+					if(items[i].type=='checkbox')
+						items[i].disabled=false;
+
+				}
+			}
+
+			function UnSelectAll(){
+				var items=document.getElementsByName('insurances');
+				for(var i=0; i<items.length; i++){
+					if(items[i].type=='checkbox')
+						items[i].checked=false;
+						items[i].disabled=true;
+
+				}
+			}
+			function handleCheckbox(checkboxElem) {
+          if (checkboxElem.checked) {
+            UnSelectAll();
+          } else {
+            enableAll();
+          }
+        }
+
+                function countCheckboxes(){
+      var inputElems = document.getElementsByName("insurances");
+      var inputNone = document.getElementById("none");
+      var count = 0;
+      for (var i=0; i<inputElems.length; i++) {
+        if (inputElems[i].type === "checkbox" && inputElems[i].checked === true) {
+          count++;
+        }
+      }
+      if(count < 1 && inputNone.checked === false){
+        $(".help-block").text("Selecteer minstens 1 optie").show();
+        event.preventDefault();
+     }
+      else{
+         $(".help-block").hide();
+      }
+
+      console.log(count);
+
+        }
+		</script>
+{% endblock %}
+
+{% block content %}
+
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+<div class="card"><div class="card-body">
+{% if player.round_number == 1 %}
+{% for field in form %}
+        {% if field.name == "edu" %}
+        {{field.label}} <p>
+    <div class="form-group has-error">
+            <input type="radio" required name="edu" value="geen diploma" id="geen diploma"
+                                onclick="document.getElementById('anders_text_edu').value=''"
+            onchange="document.getElementById('anders_text_edu').required = false ">
+                    <label for="geen diploma">Geen diploma</label><br>
+            <input type="radio" name="edu" value="basisschool" id="basisschool"
+                                onclick="document.getElementById('anders_text_edu').value=''"
+            onchange="document.getElementById('anders_text_edu').required = false ">
+            <label for="basisschool">Basisschool</label><br>
+            <input type="radio" name="edu" value="VBO, LBO" id="VBO, LBO"
+                                onclick="document.getElementById('anders_text_edu').value=''"
+            onchange="document.getElementById('anders_text_edu').required = false ">
+                    <label for="VBO, LBO">VBO, LBO</label><br>
+            <input type="radio" name="edu" value="ULO, MULO, VMBO, MAVO" id="ULO, MULO, VMBO, MAVO"
+                                onclick="document.getElementById('anders_text_edu').value=''"
+            onchange="document.getElementById('anders_text_edu').required = false ">
+                    <label for="ULO, MULO, VMBO, MAVO">ULO, MULO, VMBO, MAVO</label><br>
+            <input type="radio" name="edu" value="MBO" id="MBO"
+                                onclick="document.getElementById('anders_text_edu').value=''"
+            onchange="document.getElementById('anders_text_edu').required = false ">
+                    <label for="MBO">MBO</label><br>
+            <input type="radio" name="edu" value="HAVO, VWO, Atheneum, Gymnasium, HBS"
+                   id="HAVO, VWO, Atheneum, Gymnasium, HBS"
+                                onclick="document.getElementById('anders_text_edu').value=''"
+            onchange="document.getElementById('anders_text_edu').required = false ">
+                    <label for="HAVO, VWO, Atheneum, Gymnasium, HBS">HAVO, VWO, Atheneum, Gymnasium, HBS</label><br>
+            <input type="radio" name="edu" value="HBO, Universitaire Bachelor" id="HBO, Universitaire Bachelor"
+                                onclick="document.getElementById('anders_text_edu').value=''"
+            onchange="document.getElementById('anders_text_edu').required = false ">
+                    <label for="HBO, Universitaire Bachelor">HBO, Universitaire Bachelor</label><br>
+            <input type="radio" name="edu" value="Universitaire master, doctoraal" id="Universitaire master, doctoraal"
+                                onclick="document.getElementById('anders_text_edu').value=''"
+            onchange="document.getElementById('anders_text_edu').required = false ">
+                    <label for="Universitaire master, doctoraal">Universitaire master, doctoraal</label><br>
+            <input type="radio" name="edu" value="Promotie-onderzoek, doctoraat" id="Promotie-onderzoek, doctoraat"
+                                onclick="document.getElementById('anders_text_edu').value=''"
+            onchange="document.getElementById('anders_text_edu').required = false ">
+                    <label for="Promotie-onderzoek, doctoraat">Promotie-onderzoek, doctoraat</label><br>
+            <input type="radio" name="edu" value="anders" id="anders_edu"
+                   onchange="document.getElementById('anders_text_edu').required = this.checked">
+            <label for="anders"> Anders, namelijk:</label>
+            <input type="text" name="anders_text" size="40" id="anders_text_edu" autocomplete="off"
+               onchange="document.getElementById('anders_edu').checked = this.value.length > 0;"><br>
+                    </div>
+        </div>
+         {% elif field.name == "age" %}
+ {{field.label}}
+<div class="input-group col-xs-1">
+    <div class="input-group-input">
+<input class="form-control" type="number" aria-describedby="help-age" name='age' id='age' min=18 max=120 autocomplete="off"></div>
+        <span class="input-group-text" id = "help-age" class="text-muted"> {{field.help_text}}   </span>
+</div><br>
+{% elif field.help_text %}
+
+        <label>{{field.label}}</label>
+        <div class="input-group col-md-1" >
+        <div class="input-group-btn">{{field}}</div>
+        <span class="input-group-addon">{{field.help_text}}</span>
+        </div>
+{% elif field.name == "anders_text"%}
+    {% else %}
+
+{% formfield field %}
+{% endif %}
+{% endfor %}
+    </div>
+<br>
+{{form.errors}}
+<button name="next_button"  class="btn btn-primary btn-right btn-lg"  > Volgende </button>
+
+{% elif player.round_number == 4 %}
+<div class="card bg-light"><div class="card-body"><p>
+
+
+    Er volgt nu een aantal vragen over financiële zaken en verzekeringen. </p><p>
+ Uw antwoorden zijn strikt vertrouwelijk en zullen niet worden gebruikt voor commerciële doeleinden.
+</p></div>
+</div><br>
+
+    {% for field in form %}
+
+        {% if field.name == "floor" %}
+
+        {{field.label}} <br>
+        {{field.help_text}}
+            <input type="radio" required name="floor" value="huis" id="huis"
+                   onclick="document.getElementById('anders_text_floor').value=''"
+                   onchange="document.getElementById('anders_text_floor').required = false ">
+            <label for="huis">Woonhuis</label><br>
+            <input type="radio" name="floor" value="beganegrond" id="beganegrond"
+                   onclick="document.getElementById('anders_text_floor').value=''"
+                   onchange="document.getElementById('anders_text_floor').required = false ">
+            <label for="beganegrond">Appartement op de begane grond</label><br>
+            <input type="radio" name="floor" value="hoger" id="hoger"
+                   onclick="document.getElementById('anders_text_floor').value=''"
+                   onchange="document.getElementById('anders_text_floor').required = false ">
+            <label for="hoger">Appartement op 1e verdieping of hoger</label><br>
+            <input type="radio" name="floor" value="anders" id="anders_buren"
+            onclick="document.getElementById('anders_text_floor').value=''"
+            onchange="document.getElementById('anders_text_floor').required = this.checked">
+            <label for="anders_text_floor"> Anders, namelijk:</label>
+        <input type="text" name="anders_text" size="40" id="anders_text_floor" autocomplete="off"
+               onchange="document.getElementById('anders_buren').checked = this.value.length > 0;">
+
+        <br>
+
+{%endif%}
+
+{%endfor%}
+
+
+{% endif %}
+
+{% if player.round_number > 1 %}
+
+{% for field in form %}
+
+    {% if field.name == "regret_before" %}
+        <label>{{field.label}}</label><br>
+        <div class="input-group mb-3" >
+        <span class="input-group-text" id="basic-addon1">{{field.help_text}}</span></div>
+        {{field}}
+    {% elif field.help_text %}
+
+        <label>{{field.label}}</label><br>
+        <div class="input-group col-md-1" >
+        <div class="input-group-btn">{{field}}</div>
+        <span class="input-group-addon">{{field.help_text}}</span>
+        </div>
+    {% elif player.round_number == 5 %}
+        {% if field.name == "insurances" %}
+
+        {{field.label}} <br>
+                <div class="form-group has-error">
+            <input type="checkbox" name="insurances" value="tandarts" id="tandarts">
+            <label for="tandarts">Tandartsverzekering</label><br>
+            <input type="checkbox" name="insurances" value="aanvullend" id="aanvullend">
+            <label for="aanvullend">Ander aanvullend pakket in zorgverzekering (o.a. fysiotherapie, bril)</label><br>
+            <input type="checkbox" name="insurances" value="inboedel" id="inboedel">
+            <label for="inboedel">Inboedelverzekering</label><br>
+            <input type="checkbox" name="insurances" value="woonhuis" id="woonhuis">
+            <label for="woonhuis">Woonhuisverzekering</label><br>
+            <input type="checkbox" name="insurances" value="auto" id="auto">
+            <label for="auto">All risk autoverzekering</label><br>
+            <input type="checkbox" name="insurances" value="reis" id="reis">
+            <label for="reis">Doorlopende reisverzekering</label><br>
+            <input type="checkbox" name="insurances" value="leven" id="leven">
+            <label for="leven">Levensverzekering</label><br>
+            <input type="checkbox" name="insurances" value="recht" id="recht">
+            <label for="recht">Rechtsbijstandsverzekering</label><br>
+            <input type="checkbox" name="insurances" value="fiets" id="fiets">
+            <label for="fiets">Fietsverzekering</label><br>
+            <input type="checkbox" name="insurances" value="arbeid" id="arbeid">
+            <label for="arbeid">Arbeidsongeschiktheidsverzekering</label><br>
+            <input type="checkbox" name="insurances" value="wa" id="wa">
+            <label for="wa">Wettelijke aansprakelijkheidsverzekering (WA)</label><br>
+            <input type="checkbox" name="insurances" value="anders" id="anders"
+            onchange="document.getElementById('anders_text').value='';document.getElementById('anders_text').required = this.checked">
+            <label for="anders"> Anders, namelijk:</label>
+            <input type="text" name="anders_text" size="40" id="anders_text" autocomplete="off"
+               onchange="document.getElementById('anders').checked = this.value.length > 0;"><br>
+            <input type="checkbox" id="none" onclick="document.getElementById('anders_text').disabled = this.checked"
+                   onchange="handleCheckbox(this); document.getElementById('anders_text').value=''"/>
+            <label for="none">Geen</label><br>
+                    <div class="help-block with-errors" id="checkboxError"></div></div></div>
+
+                    {% elif field.name == "insurance" %}
+        {% formfield field %}
+        {% else %}
+{% endif %}
+{% elif field.name == "anders_text" %}
+{% elif field.name == "floor" %}
+
+    {% else %}
+    {% formfield field %}
+    {% endif %}
+
+{% endfor %}
+
+
+{{form.errors}}
+    </div></div>
+<br>
+{% if player.round_number == 5 %}
+
+<button name="next_button"  class="btn btn-primary btn-right btn-lg" onclick='countCheckboxes()' > Volgende </button>
+{% else %}
+<button name="next_button"  class="btn btn-primary btn-right btn-lg"  > Volgende </button>
+{% endif %}{% endif %}
+{% endblock %}

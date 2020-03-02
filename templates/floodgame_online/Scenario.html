@@ -1,0 +1,56 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Wat zou u doen?
+{% endblock %}
+
+{% block content %}
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+
+
+
+
+<div class="card">
+    <div class="card-body">
+    <div class="row">
+        <div class="col-md-2" align="center">
+            <i class="material-icons black" style="font-size:5em;">home</i>
+        </div>
+        <div class="col-md-10" align="center">
+            <p> We willen u nu een situatie voorleggen waarin u voor {{Constants.jaar}} jaar eigenaar
+            bent van een huis dat kan overstromen. Probeert u zich voor te stellen wat u in geval van een
+            overstromingsrisico zou doen. </p>
+        </div>
+    </div>
+
+    <p>
+        Voor dit gedeelte van het onderzoek is een grote beloning beschikbaar,
+        die <strong> willekeurig aan één van de deelnemers</strong> wordt uitgeloofd.
+        De grootte van deze beloning hangt af van uw uiteindelijke saldo op uw "spaarrekening"
+        (in dit experiment) dat bepaald wordt door uw keuzes en of een overstroming plaatsvindt.
+    </p>
+    <p>
+       U kunt tot <strong>maximaal &euro;{{max_payoff}}</strong> verdienen. <br>
+       <strong>Het is dus van belang dat u de informatie over het scenario zorgvuldig leest.</strong>
+    </p>
+    </div>
+
+<div class="card-body alert-success"><h5>
+<b>
+    In dit scenario zijn geen goede of foute antwoorden.</b> </h5>
+    <h5>We willen graag weten wat u zou doen in deze situatie.
+    </h5>
+</div>
+</div>
+<br>
+<button class="btn btn-primary btn-right btn-lg">Volgende</button>
+
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+
+
+
+
+{% endblock %}
+
+

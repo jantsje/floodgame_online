@@ -1,0 +1,40 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+
+{% block content %}
+<br><br><br>
+<h2>{{page_title}}</h2>
+<hr>
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+{% include 'snippets_floodgame_online/Verdienstenbar.html' %}
+
+
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="col-md-8">
+                    <img class="card-img-top" src="{% static 'floodgame_online/ER5.png' %}"/>
+        </div>
+        <p> Bent u verzekerd en uw huis overstroomt, dan betaalt u <strong>{{deductible_ecu_this_scenario}}</strong>. <br>
+        Als u onverzekerd bent en uw huis overstroomt zult u de volledige schade van <strong>{{Constants.damage}}
+        </strong>moeten betalen.</p>
+    </div>
+</div>
+<div class="card bg-light">
+    <div class="card-body">
+        <p>
+        U heeft aangegeven dat u geen verzekering wilt voor een premie van {{premium_fair}} per maand.
+        </p><h5>   Stelt u zich voor dat de verzekeraar nieuwe berekeningen heeft uitgevoerd.
+        <br>De premie is nu verlaagd naar <strong>{{premium_monthly}}</strong> per maand.<br>
+       <small class="text-muted">(Dat is 384 ECU per jaar. De totale kosten voor 25 jaar zijn 9.600 ECU.) </small>
+
+        </h5><h5> Wilt u deze verzekering voor de komende {{Constants.jaar}} jaar afsluiten?</h5>
+  <br>
+        <button name="accept_lower" class="btn btn-primary btn-left btn-lg" value=True >Ja, ik wil mij verzekeren voor {{premium_monthly}} per maand</button>
+        <button name="accept_lower" class="btn btn-primary btn-left btn-lg" value=False >Nee, ik neem het risico</button>
+
+</div>
+{% endblock %}

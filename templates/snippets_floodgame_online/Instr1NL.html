@@ -1,0 +1,26 @@
+{% load staticfiles otree_tags %}
+
+    <div class="card">
+    <br>
+      <div class="row">
+        <div class="col-md-6 px-3">
+            <div class="card-body px-3">
+                <p class="card-text"> Stelt u zich voor dat u <b>de komende {{Constants.jaar}} jaar </b>
+                    in bezit bent van een huis. Daarnaast heeft u {{Constants.initial_endowment}}
+                    (vergelijkbaar met Euro's) ter beschikking op uw spaarrekening.</p>
+                <p class="card-text">De kans op een overstroming is <strong>{{risk}} procent per jaar</strong>.
+                    De kans dat uw huis minstens eenmaal overstroomt in die 25 jaar is ongeveer
+                    <strong>22 procent</strong>.</p>
+            </div>
+          </div>
+          <div class="col-md-6 text-center">
+            <div class="card-body">
+            <img class="card-img-top" src="{% static 'floodgame_online/1percent.png' %}"/>
+                <small class="text-muted">De computer selecteert ieder jaar willekeurig welk huis zal overstromen. </small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+

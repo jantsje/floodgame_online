@@ -1,0 +1,154 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block styles %}
+<style>
+
+
+.col-sm-6{
+margin:0px;
+padding-left:0px;
+padding-right:0px;
+margin-bottom:20px;}
+
+
+.col-sm-1{
+padding-left:0px;
+padding-right:0px;
+}
+
+.col-sm-1-house{
+margin-bottom:20px;}
+
+.uwhuis{
+display:inline-block;
+    position: absolute;
+    top: 68px;
+    left:-6px;
+font-size:10px;}
+
+</style>
+
+{% endblock %}
+{% block title %}
+{% include 'snippets_floodgame_online/Titelblok.html' %}
+{% endblock %}
+
+{% block content %}
+{% include 'snippets_floodgame_online/Titel.html' %}
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+{% include 'snippets_floodgame_online/Verdienstenbar.html' %}
+
+{% if player.flooded  %} <!--this loop is not easy to fix in the models-->
+   <div class="alert alert-danger" role="alert">Uw huis is minstens eenmaal overstroomd.</div>
+    {% else  %}
+    <div class="alert alert-success" role="alert">Uw huis is niet overstroomd.</div>
+    {% endif %}
+
+<div class="card-body" style="margin-left:-50px;">
+<div class="row justify-content-start">
+<div class="col-md-6">
+<div class="row justify-content-end">
+
+    {% for item in items %}
+
+
+
+   <div class="col-md-1" style="height:60px;">
+                    {% if item|slugify in floodnrs and item == "012"%}
+       <div class="col-lg-1"  >
+<i class="material-icons blue" style="outline: 1px dashed black;outline-offset: 8px;">home</i>
+           <small class="text-muted">uw&nbsp;huis</small>
+
+       <br> </div>
+                    {% elif item|slugify in floodnrs %}<div class="col-md-1" >
+<i class="material-icons blue">home</i>
+
+       <br> </div>
+
+
+                    {% elif item == "012" %}<div class="col-md-1">
+<i class="material-icons black" style="outline: 1px dashed black;outline-offset: 8px;">home</i>
+                  <small class="text-muted">uw&nbsp;huis</small>
+
+
+<br></div>
+                    {% else %} <div class="col-md-1 " >
+
+<i class="material-icons black">home</i>
+   <br></div>
+                    {% endif %}
+
+
+        {% if forloop.counter|divisibleby:"10" and not forloop.last %}<!-- if last column in row -->
+        </div><div class="w-100">
+        {% endif %}
+</div>
+    {% endfor %}
+
+</div>
+</div>
+<div class="col-md-6">
+<div class="row justify-content-start">
+
+
+    {% for item in items2 %}
+
+    <!--if item in player.floodnrs-->
+
+   <div class="col-md-1" style="height:60px;">
+                    {% if item|slugify in floodnrs %}
+
+       <div class="col-md-1" >
+           <i class="material-icons blue">home</i><br>
+       </div>
+
+                    {% else %}
+
+       <div class="col-md-1" >
+           <i class="material-icons black">home</i><br>
+       </div>
+                    {% endif %}
+
+
+        {% if forloop.counter|divisibleby:"10" and not forloop.last %}<!-- if last column in row -->
+        </div><div class="w-100">
+        {% endif %}
+</div>
+    {% endfor %}
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+<p>
+
+<!--this loop is not easy to fix in the models-->
+{% if player.flooded and has_insurance %}
+    Omdat u een verplichte verzekering heeft en uw huis is overstroomd, moet u het eigen risico betalen. <br> <br>
+    <button name="pay_deductible" value="paid_deductible" class="btn btn-primary btn-right btn-lg">Betaal {{deductible_ecu_this_scenario}} eigen risico</button>
+
+{% elif player.flooded and not has_insurance %}
+    U had geen verzekering en uw huis is overstroomd. U moet nu de schade betalen.<br> <br>
+    <button name="pay_damage" value="paid_damage" class="btn btn-primary btn-right btn-lg">Betaal {{reduced_damage_this_scenario}} schade</button>
+
+
+{% elif not player.flooded  %}
+    Omdat uw huis niet is overstroomd, hoeft u niets te betalen.  <br> <br>   <button name="next_button" value="no_flood" class="btn btn-primary btn-right btn-lg">
+    Volgende pagina</button>
+
+
+
+    {% endif %}
+
+</p>
+
+
+
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+
+
+{% endblock %}

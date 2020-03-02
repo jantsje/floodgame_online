@@ -1,0 +1,34 @@
+{% load staticfiles otree_tags %}
+ <div class="card">
+      <div class="row">
+        <div class="col-md-4 text-left">
+            <div class="card-body">
+            <img class="card-img-top" src="{% static 'floodgame_online/mitigatie.png' %}"/>
+                            <small class="text-muted">
+                    Een voorbeeld van zo een schadebeperkende maatregel is het verhuizen van uw wasmachine
+                    en cv-ketel naar een hogere verdieping.</small></div>
+          </div>
+          <div class="col-md-8 px-3">
+            <div class="card-body px-3">
+                <p class="card-text"> Om uw huis te beschermen tegen overstromingsschade,
+                    kunt u investeren in <strong>schadebeperkende maatregelen</strong>.
+                    Deze maatregelen zullen niet de overstromingskans veranderen, maar ze kunnen
+                    de<strong> schade verminderen</strong>, mocht een overstroming plaatsvinden. </p>
+
+                <p class="card-text">
+                    U kunt kiezen hoeveel u wilt investeren. Hoe hoger de investering, hoe minder de verwachte schade.</p>
+    {% if has_discount %}
+    <p class="card-text"> Daarnaast zal uw <b>premie worden verminderd </b> evenredig met de schadebeperking van uw investering.
+</p>
+
+                {%endif%}
+                <p class="card-text">De kans op een overstroming is <strong>{{risk}} procent per jaar</strong>.
+                    De kans dat uw huis minstens eenmaal overstroomt in die 25 jaar is ongeveer
+                    <strong>22 procent</strong>.</p>
+            </div>
+          </div>
+
+        </div>
+ </div>
+
+

@@ -1,0 +1,35 @@
+{% load staticfiles otree_tags %}
+<div class="col-5">
+    <div class="card" style="text-align:center;">
+        <div class="card-body">
+        {% if not has_insurance%}
+
+<i class="material-icons black" style="font-size:6em">business_center</i>
+           <h6 class="card-text">
+
+           <span style="color:#007bff;"> Geen verzekering </span> tegen overstromingen</h6>
+        <small class="text-muted">Bij een overstroming betaalt u de <strong>volledige schade</strong>.
+        </small>
+
+        {% else%}
+
+            <img width="100%" src="{% static 'floodgame_online/ER5.png' %}"/>
+
+                <div class="caption">
+                <h6>
+                    <span style="color:#007bff;"> U bent verzekerd </span> tegen overstromingen </h6>
+                    In ruil voor een premie van <span style="color:#337ab7;">{{premium}} per jaar, </span> <br>
+                    betaalt de verzekeraar 95% van uw schade.
+
+        {% endif %}
+
+      </div>
+    </div>
+
+</div>
+</div>
+
+
+
+
+

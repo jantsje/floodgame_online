@@ -1,0 +1,26 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Hartelijk dank
+{% endblock %}
+
+
+{% block content %}
+
+<img width="100%" src="{% static 'floodgame_online/banner_NL.jpg' %}"/>
+
+
+   <div><h4>
+<br><br>
+       Hartelijk dank voor uw interesse in dit onderzoek. <br><br>
+       Helaas hebben we al genoeg deelnemers. <br><br>
+       Graag tot een volgende keer!
+
+   </h4></div>
+
+
+<br> <br>
+
+<button class="btn btn-primary btn-left btn-lg" onclick="self.close()">Sluit dit venster</button>
+{% endblock %}

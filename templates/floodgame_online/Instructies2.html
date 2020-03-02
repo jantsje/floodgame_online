@@ -1,0 +1,25 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Informatie over het scenario
+{% endblock %}
+
+{% block content %}
+
+
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+
+
+
+{% include 'snippets_floodgame_online/Instr2NL.html' %}
+
+
+<button class="btn btn-primary btn-right btn-lg">Volgende</button>
+
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+
+
+{% endblock %}
+
+

@@ -1,0 +1,57 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Welkom
+{% endblock %}
+
+
+{% block content %}
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar"  aria-valuemin="0" aria-valuemax="100" style="width:5%;">
+  <span class="sr-only">5 % </span>
+  </div>
+</div>
+
+<img width="100%" src="{% static 'floodgame_online/banner_NL.jpg' %}"/>
+
+<br> <br>
+<div class="card"> <div class="card-body"><p>
+We nodigen u uit om deel te nemen aan een vragenlijst over schadebeschermende maatregelen tegen overstromingen. <br>
+    U hoeft geen overstroming meegemaakt te hebben om mee te kunnen doen aan dit onderzoek.
+
+</p></div></div>
+
+   <div class="card alert alert-info" role="alert"><div class="card-body"><p>
+       Al uw antwoorden zijn strikt vertrouwelijk en zullen niet voor commerciële doeleinden worden gebruikt.
+<br>
+       Allereerst twee vragen om te bevestigen dat u in de juiste doelgroep valt.
+<br>
+       <br> <strong>Bent u eigenaar van het huis of appartement waarin u woont?</strong>
+
+{% for field in form %}
+       {% if field.name == "koopwoning" %}</p><p>
+            <input type="radio" required name="koopwoning" value=True id="1"> Ja (koophuis) &nbsp;
+            <input type="radio"  name="koopwoning" value=False id="0"> Nee (huurwoning)
+       <br>
+              {% endif %}
+       {% endfor %}
+       <br><p><b>Wat is uw postcode?</b></p>
+       <div class="row"><div class="col-md-2"><input class="form-control" name="postcode_cijfers" type="text" autocomplete="off" pattern="[0-9]{4}" placeholder="1234" required></div>
+           <div class="col-md-1"><input class="form-control" name="postcode_letters" autocomplete="off" placeholder="AB" pattern="[A-z]{2}" required></div>
+           </div>
+
+       </div>
+
+   </div>
+<br>
+</p></div>
+
+<button class="btn btn-primary btn-right btn-lg" >Volgende</button>
+{{ form.errors }}
+{% include 'snippets_floodgame_online/InstructiesCounter.html' %}
+
+{% endblock %}
+
+

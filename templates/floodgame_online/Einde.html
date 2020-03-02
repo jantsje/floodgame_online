@@ -1,0 +1,308 @@
+{% extends "floodgame_online/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Afsluitende vragen
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+            function enableAll(){
+				var items=document.getElementsByName('measures');
+				for(var i=0; i<items.length; i++){
+					if(items[i].type=='checkbox')
+						items[i].disabled=false;
+
+				}
+			}
+
+			function UnSelectAll(){
+				var items=document.getElementsByName('measures');
+				for(var i=0; i<items.length; i++){
+					if(items[i].type=='checkbox')
+						items[i].checked=false;
+						items[i].disabled=true;
+
+				}
+			}
+			function handleCheckbox(checkboxElem) {
+          if (checkboxElem.checked) {
+            UnSelectAll();
+          } else {
+            enableAll();
+          }
+        }
+
+                function countCheckboxes(){
+      var inputElems = document.getElementsByName("measures");
+      var inputNone = document.getElementById("none");
+      var count = 0;
+      for (var i=0; i<inputElems.length; i++) {
+        if (inputElems[i].type === "checkbox" && inputElems[i].checked === true) {
+          count++;
+        }
+      }
+      if(count < 1 && inputNone.checked === false){
+        $(".help-block").text("Selecteer minstens 1 optie").show();
+        event.preventDefault();
+     }
+      else{
+         $(".help-block").hide();
+      }
+
+      console.log(count);
+
+        }
+		</script>{% endblock %}
+
+{% block content %}
+
+{% include 'snippets_floodgame_online/Voortgangsbalk.html' %}
+<div class="card"><div class="card-body"><p>
+{% if player.round_number == 7 %}
+    {% for field in form %}
+        {% if field.name == "measures" %}
+
+            {{field.label}} <p>
+                    <div class="form-group has-error">
+                <input type="checkbox" name="measures" value="kelder" id="kelder" data-validate="false">
+                <label for="kelder">Geen waardevolle spullen in kelder</label><br>
+                <input type="checkbox" name="measures" value="meubels" id="meubels" data-validate="false">
+                <label for="meubels">Waterresistente meubels op begane grond</label><br>
+                <input type="checkbox" name="measures" value="palen" id="palen" data-validate="false">
+                <label for="palen">Verhoogde vloer / huis op palen</label><br>
+                <input type="checkbox" name="measures" value="fundering" id="fundering" data-validate="false">
+                <label for="fundering">Versterkte fundering</label><br>
+                <input type="checkbox" name="measures" value="muren" id="muren" data-validate="false">
+                <label for="muren">Muren gemaakt van waterresistent materiaal</label><br>
+                <input type="checkbox" name="measures" value="vloer" id="vloer" data-validate="false">
+                <label for="vloer">Vloer gemaakt van waterresistent materiaal (bijvoorbeeld tegels)</label><br>
+                <input type="checkbox" name="measures" value="stopcontact" id="stopcontact" data-validate="false">
+                <label for="stopcontact">Stopcontacten hoger in de muur geplaatst</label><br>
+                <input type="checkbox" name="measures" value="terugslagklep" id="terugslagklep" data-validate="false">
+                <label for="terugslagklep">Terugslagklep op de riolering/waterleiding</label><br>
+                <input type="checkbox" name="measures" value="zandzakken" id="zandzakken" data-validate="false">
+                <label for="zandzakken">(Lege) zandzakken en/of vloedschotten in huis</label><br>
+                <input type="checkbox" name="measures" value="wasmachine" id="wasmachine" data-validate="false">
+                <label for="wasmachine">Wasmachine en/of droger op 1e verdieping of hoger</label><br>
+                <input type="checkbox" name="measures" value="boiler" id="boiler" data-validate="false">
+                <label for="boiler">CV ketel en/of boiler op de 1e verdieping of hoger</label><br>
+                <input type="checkbox" name="measures" value="meterkast" id="meterkast" data-validate="false">
+                <label for="meterkast">Meterkast op 1e verdieping of hoger</label><br>
+
+                <input type="checkbox" name="measures" value="verzekerd" id="verzekerd" data-validate="false">
+                <label for="verzekerd">Aparte overstromingsverzekering gekocht</label><br>
+                        <input type="checkbox" name="measures" value="anders" id="anders" data-validate="false"
+                onclick="document.getElementById('anders_text').value=''"
+                onchange="document.getElementById('anders_text').required = this.checked">
+                <label for="anders"> Anders, namelijk:</label>
+                <input type="text" name="anders_text" size="40" id="anders_text" autocomplete="off" data-validate="false"
+                   onchange="document.getElementById('anders').checked = this.value.length > 0;"><br>
+                <input type="checkbox" id="none" data-validate="false"
+                       onchange="handleCheckbox(this); document.getElementById('anders_text').value='';
+              document.getElementById('anders_text_edu').required = false;"
+                onclick="document.getElementById('anders_text').disabled = this.checked"/>
+                <label for="none">Geen</label><br>
+
+                           <div class="help-block with-errors" id="checkboxError"></div>
+
+        {% elif field.name == "neighbors" %}
+
+            {% formfield field %}
+
+        {% endif %}
+    {% endfor %}
+
+{% elif player.round_number == 8 %}
+
+    {% for field in form %}
+        {% if field.name == "neighbors_measures" %}
+
+        {{field.label}} <p>
+        {{field.help_text}}
+            <input type="radio" required name="neighbors_measures" value="partner" id="partner"
+                   onclick="document.getElementById('anders_text_buren').value=''"
+                   onchange="document.getElementById('anders_text_buren').required = false ">
+            <label for="partner">Partner</label><br>
+            <input type="radio" name="neighbors_measures" value="vriend" id="vriend"
+                   onclick="document.getElementById('anders_text_buren').value=''"
+                   onchange="document.getElementById('anders_text_buren').required = false ">
+            <label for="vriend">Goede vriend(in)</label><br>
+            <input type="radio" name="neighbors_measures" value="ouders" id="ouders"
+                   onclick="document.getElementById('anders_text_buren').value=''"
+                   onchange="document.getElementById('anders_text_buren').required = false ">
+            <label for="ouders">Ouder</label><br>
+            <input type="radio" name="neighbors_measures" value="oomtante" id="oomtante"
+                   onclick="document.getElementById('anders_text_buren').value=''"
+                   onchange="document.getElementById('anders_text_buren').required = false ">
+            <label for="oomtante">Oom/tante</label><br>
+            <input type="radio" name="neighbors_measures" value="zoondochter" id="zoondochter"
+                   onclick="document.getElementById('anders_text_buren').value=''"
+                   onchange="document.getElementById('anders_text_buren').required = false ">
+            <label for="zoondochter">Zoon/dochter</label><br>
+            <input type="radio" name="neighbors_measures" value="neefnicht" id="neefnicht"
+                   onclick="document.getElementById('anders_text_buren').value=''"
+                   onchange="document.getElementById('anders_text_buren').required = false ">
+            <label for="neefnicht">Neef/nicht</label><br>
+            <input type="radio" name="neighbors_measures" value="buren" id="buren"
+                   onclick="document.getElementById('anders_text_buren').value=''"
+                   onchange="document.getElementById('anders_text_buren').required = false ">
+            <label for="buren">Buurman/vrouw</label><br>
+            <input type="radio" name="neighbors_measures" value="kennis" id="kennis"
+                   onclick="document.getElementById('anders_text_buren').value=''"
+                   onchange="document.getElementById('anders_text_buren').required = false ">
+            <label for="kennis">Kennis</label><br>
+            <input type="radio" name="neighbors_measures" value="anders" id="anders_buren"
+            onclick="document.getElementById('anders_text_buren').value=''"
+            onchange="document.getElementById('anders_text_buren').required = this.checked">
+            <label for="anders"> Anders, namelijk:</label>
+        <input type="text" name="anders_text" size="40" id="anders_text_buren" autocomplete="off"
+               onchange="document.getElementById('anders_buren').checked = this.value.length > 0;">
+
+        </p>
+        {%endif%}
+    {% endfor %}
+
+{% elif player.round_number == 9 %}
+
+        {% for field in form %}
+
+        <table class="table" width=100%>
+            <thead>
+            <tr> {{field.label}}</tr>
+            </thead>
+            <tbody> <tr>
+                <td width="12%">
+                    <br>totaal niet bereid</td>
+                <td width="4%"><br><input required type="radio" name="{{ field.html_name}}" value="0"> <br>0</td>
+                <td width="4%"><br><input type="radio" name="{{ field.html_name}}" value="1"><br> 1</td>
+                <td width="4%"><br><input type="radio" name="{{ field.html_name}}" value="2"><br> 2</td>
+                <td width="4%"><br><input type="radio" name="{{ field.html_name}}" value="3"><br> 3</td>
+                <td width="4%"><br><input type="radio" name="{{ field.html_name}}" value="4"><br> 4</td>
+                <td width="4%"><br><input type="radio" name="{{ field.html_name}}" value="5"><br> 5</td>
+                <td width="4%"><br><input type="radio" name="{{ field.html_name}}" value="6"><br> 6</td>
+                <td width="4%"><br><input type="radio" name="{{ field.html_name}}" value="7"><br> 7</td>
+                <td width="4%"><br><input type="radio" name="{{ field.html_name}}" value="8"><br> 8</td>
+                <td width="4%"><br><input type="radio" name="{{ field.html_name}}" value="9"><br> 9</td>
+                <td width="6%"><br><input type="radio" name="{{ field.html_name}}" value="10"><br> 10</td>
+                <td width="20%">
+                    <br>heel erg bereid</td>
+            </tr>
+            </tbody>
+
+        </table>
+
+        {% endfor %}
+
+
+{% elif player.round_number == 11 or  player.round_number == 12 %}
+
+
+            In hoeverre bent u het eens met onderstaande beweringen?    <br>
+        {% for field in form %}
+
+        <table class="table table-sm" width=100%>
+            <tr>
+                {%if  forloop.counter  == 1  %}<th> </th><th>Helemaal mee oneens</th><th>Oneens</th><th>Niet eens niet oneens</th><th>Eens</th><th>Helemaal mee eens</th>
+                {% endif %}
+
+            </tr>
+
+            <tr>
+                <td width="50%">
+                    {{ field.label }}
+                    {{ field.errors }}
+                </td>
+                <td width="9%"><input type="radio" name="{{ field.html_name}}" value="Strongly disagree"></td>
+                <td width="8%"><input type="radio" name="{{ field.html_name}}" value="Disgree"></td>
+                <td width="9%"><input required type="radio" name="{{ field.html_name}}" value="Neither agree nor disagree"></td>
+                <td width="8%"><input type="radio" name="{{ field.html_name}}" value="Agree"></td>
+                <td width="9%"><input type="radio" name="{{ field.html_name}}" value="Strongly agree"></td>
+
+            </tr>
+
+        </table>
+
+        {% endfor %}
+
+{% else %}
+                {% for field in form %}
+
+                        {% if field.name == "exact_flood_risk_perception" %}
+
+                <div class="well col-md-12"  >
+                    De overheid is verantwoordelijk voor het onderhoud van dijken.
+                    De schaal hieronder geeft verschillende overstromingskansen weer.
+                    <!--, varierend van eenmaal per jaar-->
+                    <!--tot eenmaal in de 100.000 jaar. De wettelijke norm is weergegeven aan de bovenkant van de schaal.-->
+
+                </div><div class="col-md-10"><img width="90%" src="{% static 'floodgame_online/schaal.png' %}"/><br><br><br></div>
+                <label>{{field.label}}</label><br>
+            <div class="row">
+                <div class="col-md-5">
+            <div class="input-group" >
+                  <div class="input-group-prepend"><div class="input-group-text">overstroming gemiddeld eens per</div></div>
+                <input class="form-control" required type="number" min="0"
+                                                       name="exact_flood_risk_perception" id="exact" autocomplete="off"
+                onchange="document.getElementById('checkbox').disabled = this.value.length > 0;">
+
+                <div class="input-group-append"><div class="input-group-text">{{field.help_text}}</div></div></div>
+                </div>
+
+                <div class="col-md-7">
+                <div class="input-group-prepend"><div class="input-group-text">of als u denkt dat een overstroming nooit kan plaatsvinden:</div>
+
+                    <div class="input-group-text">
+                    <input type="checkbox" value="999999" name="exact_flood_risk_perception" id="checkbox"
+                           aria-label="..." onchange="document.getElementById('exact').disabled = this.checked;"></div>
+            </div></div>
+
+
+            <br>
+                        {% elif field.name == "explain_strategy" %}
+                        <label>{{field.label}}</label><br>
+                        <textarea class="form-control" name="explain_strategy" required autocomplete="off"></textarea>
+                        <br>
+{% elif field.name == "cloud" or field.name == "cloud2" %}
+
+        <label>{{field.label}}</label><br>
+        <div class="input-group col-md-1" >
+        <div class="input-group-btn">{{field}}</div>
+            <div class="input-group-append"><div class="input-group-text">{{field.help_text}}</div></div>
+        </div><br>
+                        {% elif field.name == "difficult_text" %}
+                        <label>{{field.label}}</label><br>
+                        <textarea class="form-control" name="difficult_text" required autocomplete="off"></textarea>
+                        <br><br><br>
+                        {% elif field.name == "feedback" %}
+                        <label>{{field.label}}</label><br>
+                        <textarea class="form-control" name="feedback" autocomplete="off"></textarea>
+
+
+                        {% else %}
+                            {% formfield field %}
+{% endif %}
+            {% endfor %}
+
+{% endif %}
+
+{{form.errors}}
+    </p></div></div>{% if player.round_number == 15%}
+<div class="alert alert-success" role="alert">
+     <p> Hartelijk dank voor uw deelname aan dit onderzoek. </p><p>
+       </p><p> Mocht u geselecteerd worden voor uitbetaling van de grote prijs, dan zullen wij contact met u opnemen.
+       </p><p>Als u vragen heeft over het onderzoek dan kunt u een e-mail sturen naar
+       <a href="mailto:info.ivm@vu.nl">info.ivm@vu.nl</a>
+     </p>
+     </div>
+{% endif %}</div>
+
+
+{% if player.round_number == 7 %}
+<button name="next_button"  class="btn btn-primary btn-right btn-lg" onclick='countCheckboxes()' > Volgende </button>
+{% else %}
+<button name="next_button"  class="btn btn-primary btn-right btn-lg"  > Volgende </button>
+{% endif %}
+
+{% endblock %}
