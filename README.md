@@ -6,7 +6,7 @@ This application allows to use the Floodgame as an oTree application in Dutch wi
 Mol, J. M., Botzen, W. J. W., & Blasch, J. E. (2018). Behavioral motivations for self-insurance under different disaster risk insurance schemes. Journal of Economic Behavior & Organization, 1–25. https://doi.org/10.1016/j.jebo.2018.12.007
 
 ## Installation
-To install the app to your local oTree directory, copy the folder 'floodgame_norms' to your oTree Django project and extent the session configurations in your settings.py at the root of the oTree directory:
+To install the app to your local oTree directory, copy the folder 'floodgame_online' to your oTree Django project and extent the session configurations in your settings.py at the root of the oTree directory:
 
 ```
 SESSION_CONFIGS = [
