@@ -1,12 +1,12 @@
 # floodgame_online
 
-This application allows to use the Floodgame as an oTree application in Dutch with five treatments. The experiment was conducted in July 2018 among 2111 homeowners in the Dutch river delta.
+This application allows to use a simplified version of the **Floodgame** as an oTree application for use with an online panel (in contrast with the first [Floodgame](https://github.com/jantsje/floodgame) which was set up as a lab experiment. Participants now make one decision for 25 years living in a virtual home. The earnings task and the additional risk and time preferences tasks have been removed.  The experiment was conducted in July 2018 among 2111 homeowners in the Dutch river delta.
 
 ## Published paper
 Mol, J. M., Botzen, W. J. W., & Blasch, J. E. (2018). Behavioral motivations for self-insurance under different disaster risk insurance schemes. Journal of Economic Behavior & Organization, 1–25. https://doi.org/10.1016/j.jebo.2018.12.007
 
 ## Installation
-To install the app to your local oTree directory, copy the folder 'floodgame_online' to your oTree Django project and extent the session configurations in your settings.py at the root of the oTree directory:
+To install the app to your local oTree directory, copy the folder 'floodgame_online' to your oTree Django project and extent the session configurations in your ```settings.py``` at the root of the oTree directory:
 
 ```
 SESSION_CONFIGS = [
@@ -34,8 +34,8 @@ Understanding questions rely on [otree-utils](https://github.com/WZBSocialScienc
 * voluntary discount (includes WTP pages, pp with WTP > subsidized premium are insured in the game, discount offered)
 
 ## Target group
-Note that the first page ('Welkom') asks for homeownership and postal code. The 'postcodes.py' file is used as input to determine whether a respondent is in the target area. 
+Note that the first page (*Welkom*) asks for homeownership and postal code. The ```postcodes.py``` file is used as input to determine whether a respondent is in the target area. 
 Respondents who answer that they do not own their home or those who enter a postcode that is not in 'postcodes.py' will be redirected to the no-target-group-message of the panel company. 
 
 ## Instructions pop-up
-Instructions are available in a pop-up screen (modal) throughout the game. JavaScript code tracks how often respondents click this button ('opened_instructions').
+Instructions are available in a pop-up screen (modal) throughout the game. JavaScript code tracks how often respondents click the button ('opened_instructions').
