@@ -184,7 +184,7 @@ class Subsession(BaseSubsession):
                            for p in self.get_players()]
         return {'vars_admin_list': vars_admin_list,  'doelgroep': doelgroep,
                 'dropouts': dropouts, 'dropouts_totaal': sum(dropouts),
-                'completes_totaal': sum(completes), 'completes': completes,
+                'completes_totaal': sum(completes), 'completes.txt': completes,
                 'quota': quota, 'quota_totaal': sum(quota)}
 
 
